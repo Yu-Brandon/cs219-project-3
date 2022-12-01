@@ -6,14 +6,15 @@
 #include "Registers.h"
 using namespace std;
 
-void addingHex(string, string, string, Registers*);
+void addingHex(string, string, string, string, Registers*);
+void movHex(string, string, string, Registers*);
+void subHex(string,string, string, string, Registers*);
 /*void andHex(string, string);
 void asrHex(string,string);
 void lsrHex(string, string);
 void lslHex(string, string);
 void notHex(string);
 void orrHex(string, string);
-void subHex(string, string);
 void xorHex(string, string);*/
 
 int main(){
@@ -29,9 +30,13 @@ int main(){
             iss >> One >> Two >> Three >> Four;
 
             if(One == "ADD" || One == "add"){
-                addingHex(Two, Three, Four, myRegisters);
-                cout << One << " " << Two << " " << Three << " " << Four << endl;
-                myRegisters -> printRegisters();
+                addingHex(One, Two, Three, Four, myRegisters);
+            }
+            else if(One == "MOV" || One == "mov"){
+                movHex(One, Two, Three, myRegisters);
+            }
+            else if(One == "SUB" || One == "sub"){
+                subHex(One, Two, Three, Four, myRegisters);
             }
             /*else if(operation == "AND"){
                 andHex(num1, num2);
@@ -51,9 +56,6 @@ int main(){
             else if(operation == "ORR"){
                 orrHex(num1, num2);
             }
-            else if(operation == "SUB"){
-                subHex(num1, num2);
-            }
             else{
                 xorHex(num1, num2);
             }*/
@@ -65,7 +67,13 @@ int main(){
     return 0;
 }
 
-void addingHex(string Two, string Three, string Four, Registers* myRegisters){
+void movHex(string One, string Two, string Three, Registers* myRegisters){
+    myRegisters -> updateRegister(Two, Three);
+    cout << One << " " << Two << " " << Three << " " << endl;
+    myRegisters -> printRegisters();
+}
+
+void addingHex(string One, string Two, string Three, string Four, Registers* myRegisters){
     uint32_t addedTogether;
     string hex1, hex2;
     hex1 = myRegisters -> returnRegister(Three);
@@ -85,8 +93,37 @@ void addingHex(string Two, string Three, string Four, Registers* myRegisters){
         myRegisters -> updateRegister(Two, "0x0");
     }
     else{
-        myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
+        myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
     }
+    cout << One << " " << Two << " " << Three << " " << Four << endl;
+    myRegisters -> printRegisters();
+}
+
+
+void subHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t addedTogether;
+    string hex1, hex2;
+    hex1 = myRegisters -> returnRegister(Three);
+    hex2 = myRegisters -> returnRegister(Four);
+
+    Hexadecimal firstHex(hex1);
+    Hexadecimal secondHex(hex2);
+
+    firstHex.changeToDecimal();
+    secondHex.changeToDecimal();
+
+    addedTogether = firstHex.returnDecimal() - secondHex.returnDecimal();
+    Hexadecimal decimal(addedTogether);
+    decimal.changeToHex();
+
+    if(addedTogether == 0){
+        myRegisters -> updateRegister(Two, "0x0");
+    }
+    else{
+        myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
+    }
+    cout << One << " " << Two << " " << Three << " " << Four << endl;
+    myRegisters -> printRegisters();
 }
 
 /*void andHex(string number1, string number2){
@@ -190,28 +227,6 @@ void orrHex(string number1, string number2){
     }
 }
 
-void subHex(string number1, string number2){
-    uint32_t subTogether;
-    Hexadecimal firstHex(number1);
-    Hexadecimal secondHex(number2);
-
-    firstHex.changeToDecimal();
-    secondHex.changeToDecimal();
-
-    subTogether = firstHex.returnDecimal() - secondHex.returnDecimal();
-    Hexadecimal decimal(subTogether);
-    decimal.changeToHex();
-
-    if(subTogether == 0){
-        cout << "Subtracting " << number1 << " and " << number2 << " is equal to 0x0" << endl;
-    }
-    else{
-        Hexadecimal decimal(subTogether);
-        decimal.changeToHex();
-
-        cout << "Subtracting " << number1 << " and " << number2 << " is equal to " << decimal.returnHexadecimal() << endl;
-    }
-}
 
 void xorHex(string number1, string number2){
     uint32_t xorTogether;
