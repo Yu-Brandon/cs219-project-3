@@ -11,8 +11,10 @@ void movHex(string, string, string, Registers*);
 void subHex(string, string, string, string, Registers*);
 void orrHex(string, string, string, string, Registers*);
 void xorHex(string, string, string, string, Registers*);
+void asrHex(string, string, string, string, Registers*);
+void lsrHex(string, string, string, string, Registers*);
+void lslHex(string, string, string, string, Registers*);
 /*void andHex(string, string);
-void asrHex(string,string);
 void lsrHex(string, string);
 void lslHex(string, string);
 void notHex(string);
@@ -45,16 +47,20 @@ int main(){
             else if(One == "XOR" || One == "xor"){
                 xorHex(One, Two, Three, Four, myRegisters);
             }
-            /*else if(operation == "ASR"){
-                asrHex(num1, num2);
+            else if(One == "ASR" || One == "asr"){
+                asrHex(One, Two, Three, Four, myRegisters);
             }
-            else if(operation == "LSR"){
-                lsrHex(num1, num2);
+            else if(One == "LSR" || One == "lsr"){
+                asrHex(One, Two, Three, Four, myRegisters);
             }
-            else if(operation == "LSL"){
+            else if(One == "LSL" || One == "lsl"){
+                asrHex(One, Two, Three, Four, myRegisters);
+            }
+
+            /*else if(operation == "LSL"){
                 lslHex(num1, num2);
             }
-            else if(operation == "NOT"){
+            /*else if(operation == "NOT"){
                 notHex(num1);
             }
             else{
@@ -69,9 +75,10 @@ int main(){
 }
 
 void movHex(string One, string Two, string Three, Registers* myRegisters){
+    string nThree = Three;
     Three.erase(0,1);
     myRegisters -> updateRegister(Two, Three);
-    cout << One << " " << Two << " " << Three << " " << endl;
+    cout << One << " " << Two << " " << nThree << " " << endl;
     myRegisters -> printRegisters();
 }
 
@@ -180,7 +187,82 @@ void xorHex(string One, string Two, string Three, string Four, Registers* myRegi
     myRegisters -> printRegisters();
 }
 
-/*void andHex(string number1, string number2){
+void asrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t asrNum;
+    string nFour = Four;
+    Four.erase(0,1);
+    int shiftNum = Four[0] - 48;
+
+    string hex1 = myRegisters -> returnRegister(Three);
+    Hexadecimal hex(hex1);
+    hex.changeToDecimal();
+
+    signed int uNmber = hex.returnDecimal();
+    asrNum = uNmber >> shiftNum;
+    Hexadecimal decimal(asrNum);
+    decimal.changeToHex();
+
+    myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
+    cout << One << " " << Two << " " << Three << " " << nFour << endl;
+    myRegisters -> printRegisters();
+}
+
+void lsrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t lsrNum;
+    string nFour = Four;
+    Four.erase(0,1);
+    int shiftNum = Four[0] - 48;
+
+    string hex1 = myRegisters -> returnRegister(Three);
+    Hexadecimal hex(hex1);
+    hex.changeToDecimal();
+
+    unsigned int uNumber = hex.returnDecimal();
+    lsrNum = uNumber >> shiftNum;
+    Hexadecimal decimal(lsrNum);
+    decimal.changeToHex();
+
+    myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
+    cout << One << " " << Two << " " << Three << " " << nFour << endl;
+    myRegisters -> printRegisters();
+}
+
+void lslHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t lslNum;
+    string nFour = Four;
+    Four.erase(0,1);
+    int shiftNum = Four[0] - 48;
+
+    string hex1 = myRegisters -> returnRegister(Three);
+    Hexadecimal hex(hex1);
+    hex.changeToDecimal();
+
+    lslNum = hex.returnDecimal() << shiftNum;
+    Hexadecimal decimal(lslNum);
+    decimal.changeToHex();
+
+    myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
+    cout << One << " " << Two << " " << Three << " " << nFour << endl;
+    myRegisters -> printRegisters();
+}
+
+/*
+void lslHex(string number1, string number2){
+    uint32_t lslNum;
+    int shiftNum = number2[0] - 48;
+
+    Hexadecimal hex(number1);
+    hex.changeToDecimal();
+
+    lslNum = hex.returnDecimal() << shiftNum;
+    Hexadecimal decimal(lslNum);
+    decimal.changeToHex();
+
+    cout << number1 << " LSL " << number2 << " times is equal to " << decimal.returnHexadecimal() << endl;
+}
+
+
+void andHex(string number1, string number2){
     uint32_t andTogether;
     Hexadecimal firstHex(number1);
     Hexadecimal secondHex(number2);
@@ -200,20 +282,6 @@ void xorHex(string One, string Two, string Three, string Four, Registers* myRegi
     }
 }
 
-void asrHex(string number1, string number2){
-    uint32_t asrNum;
-    int shiftNum = number2[0] - 48;
-
-    Hexadecimal hex(number1);
-    hex.changeToDecimal();
-
-    asrNum = hex.returnDecimal() >> shiftNum;
-    Hexadecimal decimal(asrNum);
-    decimal.changeToHex();
-
-    cout << number1 << " ASR " << number2 << " times is equal to " << decimal.returnHexadecimal() << endl;
-}
-
 void lsrHex(string number1, string number2){
     uint32_t lsrNum;
     int shiftNum = number2[0] - 48;
@@ -229,20 +297,6 @@ void lsrHex(string number1, string number2){
     cout << number1 << " LSR " << number2 << " times is equal to " << decimal.returnHexadecimal() << endl;
 }
 
-
-void lslHex(string number1, string number2){
-    uint32_t lslNum;
-    int shiftNum = number2[0] - 48;
-
-    Hexadecimal hex(number1);
-    hex.changeToDecimal();
-
-    lslNum = hex.returnDecimal() << shiftNum;
-    Hexadecimal decimal(lslNum);
-    decimal.changeToHex();
-
-    cout << number1 << " LSL " << number2 << " times is equal to " << decimal.returnHexadecimal() << endl;
-}
 
 void notHex(string number1){
     uint32_t notNumber;

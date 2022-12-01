@@ -5,3 +5,7 @@ SUB R4, R3, R2
 mov r0, #0xAAA5555
 orr r0, r2, r3
 xor r5, r3, r4
+MOV R6, #0xFFFFFFFF
+ASR R7, R6, #2
+lsr R7, R6, #2
+LSL R6, R7, #1
