@@ -8,14 +8,15 @@ using namespace std;
 
 void addingHex(string, string, string, string, Registers*);
 void movHex(string, string, string, Registers*);
-void subHex(string,string, string, string, Registers*);
+void subHex(string, string, string, string, Registers*);
+void orrHex(string, string, string, string, Registers*);
+void xorHex(string, string, string, string, Registers*);
 /*void andHex(string, string);
 void asrHex(string,string);
 void lsrHex(string, string);
 void lslHex(string, string);
 void notHex(string);
-void orrHex(string, string);
-void xorHex(string, string);*/
+*/
 
 int main(){
     Registers* myRegisters = new Registers();
@@ -38,10 +39,13 @@ int main(){
             else if(One == "SUB" || One == "sub"){
                 subHex(One, Two, Three, Four, myRegisters);
             }
-            /*else if(operation == "AND"){
-                andHex(num1, num2);
+            else if(One == "ORR" || One == "orr"){
+                orrHex(One, Two, Three, Four, myRegisters);
             }
-            else if(operation == "ASR"){
+            else if(One == "XOR" || One = "xor"){
+                xorHex(One, Two, Three, Four, myRegisters);
+            }
+            /*else if(operation == "ASR"){
                 asrHex(num1, num2);
             }
             else if(operation == "LSR"){
@@ -52,9 +56,6 @@ int main(){
             }
             else if(operation == "NOT"){
                 notHex(num1);
-            }
-            else if(operation == "ORR"){
-                orrHex(num1, num2);
             }
             else{
                 xorHex(num1, num2);
@@ -113,6 +114,58 @@ void subHex(string One, string Two, string Three, string Four, Registers* myRegi
     secondHex.changeToDecimal();
 
     addedTogether = firstHex.returnDecimal() - secondHex.returnDecimal();
+    Hexadecimal decimal(addedTogether);
+    decimal.changeToHex();
+
+    if(addedTogether == 0){
+        myRegisters -> updateRegister(Two, "0x0");
+    }
+    else{
+        myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
+    }
+    cout << One << " " << Two << " " << Three << " " << Four << endl;
+    myRegisters -> printRegisters();
+}
+
+void orrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t addedTogether;
+    string hex1, hex2;
+    hex1 = myRegisters -> returnRegister(Three);
+    hex2 = myRegisters -> returnRegister(Four);
+
+    Hexadecimal firstHex(hex1);
+    Hexadecimal secondHex(hex2);
+
+    firstHex.changeToDecimal();
+    secondHex.changeToDecimal();
+
+    addedTogether = firstHex.returnDecimal() | secondHex.returnDecimal();
+    Hexadecimal decimal(addedTogether);
+    decimal.changeToHex();
+
+    if(addedTogether == 0){
+        myRegisters -> updateRegister(Two, "0x0");
+    }
+    else{
+        myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
+    }
+    cout << One << " " << Two << " " << Three << " " << Four << endl;
+    myRegisters -> printRegisters();
+}
+
+void xorHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t addedTogether;
+    string hex1, hex2;
+    hex1 = myRegisters -> returnRegister(Three);
+    hex2 = myRegisters -> returnRegister(Four);
+
+    Hexadecimal firstHex(hex1);
+    Hexadecimal secondHex(hex2);
+
+    firstHex.changeToDecimal();
+    secondHex.changeToDecimal();
+
+    addedTogether = firstHex.returnDecimal() ^ secondHex.returnDecimal();
     Hexadecimal decimal(addedTogether);
     decimal.changeToHex();
 
@@ -207,43 +260,4 @@ void notHex(string number1){
     }
 }
 
-void orrHex(string number1, string number2){
-    uint32_t orrTogether;
-    Hexadecimal firstHex(number1);
-    Hexadecimal secondHex(number2);
-
-    firstHex.changeToDecimal();
-    secondHex.changeToDecimal();
-
-    orrTogether = firstHex.returnDecimal() | secondHex.returnDecimal();
-    Hexadecimal decimal(orrTogether);
-    decimal.changeToHex();
-
-    if(orrTogether == 0){
-        cout << number1 << " ORR " << number2 << " is equal to 0x0" << endl;
-    }      
-    else{
-        cout << number1 << " ORR " << number2 << " is equal to " << decimal.returnHexadecimal() << endl;
-    }
-}
-
-
-void xorHex(string number1, string number2){
-    uint32_t xorTogether;
-    Hexadecimal firstHex(number1);
-    Hexadecimal secondHex(number2);
-
-    firstHex.changeToDecimal();
-    secondHex.changeToDecimal();
-
-    xorTogether = firstHex.returnDecimal() ^ secondHex.returnDecimal();
-    Hexadecimal decimal(xorTogether);
-    decimal.changeToHex();
-
-    if(xorTogether == 0){
-        cout << number1 << " XOR " << number2 << " is equal to 0x0" << endl;
-    }      
-    else{
-        cout << number1 << " XOR " << number2 << " is equal to " << decimal.returnHexadecimal() << endl;
-    }
-}*/
+*/

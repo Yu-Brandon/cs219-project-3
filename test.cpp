@@ -3,16 +3,9 @@
 using namespace std;
 
 int main(){
-    string one = "R2";
-    string two;
-    two = one;
+    string one = "R2dhsgowhegowhpq";
 
-    if(two == "R3," || two  == "R2"){
-        cout << "hi";
-    }
-    else{
-        cout << "nope";
-    }
-
+    one.erase(2);
+    cout << one;
     return 0;
 }
