@@ -3,7 +3,7 @@
 Registers::Registers(){
     RZero = "0x1";
     ROne = "0x2";
-    RTwo = "0x0";
+    RTwo = "0x4";
     RThree = "0x0";
     RFour = "0x0";
     RFive = "0x0";
@@ -13,18 +13,17 @@ Registers::Registers(){
 
 void Registers::updateRegister(string registerNum, string hex){
     if(registerNum == "R0" || registerNum == "r0" || registerNum == "R0," || registerNum == "r0,"){
-        cout << "in here";
         RZero = hex;
     }
     else if(registerNum == "R1" || registerNum == "r1" || registerNum == "R1," || registerNum == "r1,"){
+        cout << RThree << endl;
         ROne = hex;
     }
     else if(registerNum == "R2" || registerNum == "r2" || registerNum == "R2," || registerNum == "r2,"){
         RTwo = hex;
     }
     else if(registerNum == "R3" || registerNum == "r3" || registerNum == "R3," || registerNum == "r3,"){
-        //cout<< "in here" << endl;
-        RThree.assign(hex);
+        RThree = hex;
     }
     else if(registerNum == "R4" || registerNum == "r4" || registerNum == "R4," || registerNum == "r4,"){
         RFour = hex;
@@ -41,9 +40,7 @@ void Registers::updateRegister(string registerNum, string hex){
 }
 
 string Registers::returnRegister(string registerNum){
-    cout << registerNum << endl;
     if(registerNum == "R0" || registerNum == "r0" || registerNum == "R0," || registerNum == "r0,"){ 
-        cout << "in here";
         return RZero;
     }
     else if(registerNum == "R1" || registerNum == "r1"|| registerNum == "R1," || registerNum == "r1,"){

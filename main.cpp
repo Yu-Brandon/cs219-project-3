@@ -6,7 +6,7 @@
 #include "Registers.h"
 using namespace std;
 
-void addingHex(string, string, string, Registers);
+void addingHex(string, string, string, Registers*);
 /*void andHex(string, string);
 void asrHex(string,string);
 void lsrHex(string, string);
@@ -17,7 +17,7 @@ void subHex(string, string);
 void xorHex(string, string);*/
 
 int main(){
-    Registers myRegisters;
+    Registers* myRegisters = new Registers();
     string line;
     string One, Two, Three, Four;
 
@@ -31,7 +31,7 @@ int main(){
             if(One == "ADD" || One == "add"){
                 addingHex(Two, Three, Four, myRegisters);
                 cout << One << " " << Two << " " << Three << " " << Four << endl;
-                myRegisters.printRegisters();
+                myRegisters -> printRegisters();
             }
             /*else if(operation == "AND"){
                 andHex(num1, num2);
@@ -65,11 +65,11 @@ int main(){
     return 0;
 }
 
-void addingHex(string Two, string Three, string Four, Registers myRegisters){
+void addingHex(string Two, string Three, string Four, Registers* myRegisters){
     uint32_t addedTogether;
     string hex1, hex2;
-    hex1 = myRegisters.returnRegister(Three);
-    hex2 = myRegisters.returnRegister(Four);
+    hex1 = myRegisters -> returnRegister(Three);
+    hex2 = myRegisters -> returnRegister(Four);
 
     Hexadecimal firstHex(hex1);
     Hexadecimal secondHex(hex2);
@@ -82,10 +82,10 @@ void addingHex(string Two, string Three, string Four, Registers myRegisters){
     decimal.changeToHex();
 
     if(addedTogether == 0){
-        myRegisters.updateRegister(Two, "0x0");
+        myRegisters -> updateRegister(Two, "0x0");
     }
     else{
-        myRegisters.updateRegister(Two, decimal.returnHexadecimal());
+        myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
     }
 }
 
