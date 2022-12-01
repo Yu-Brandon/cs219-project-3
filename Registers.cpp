@@ -12,24 +12,24 @@ Registers::Registers(){
 }
 
 void Registers::updateRegister(string registerNum, string hex){
-    if(registerNum == "R0" || "r0" || "R0," || "r0,"){
+    if(registerNum == "R0" || registerNum == "r0" || registerNum == "R0," || registerNum == "r0,"){
         cout << "in here";
         RZero = hex;
     }
-    else if(registerNum == "R1" || "r1" || "R1," || "r1,"){
+    else if(registerNum == "R1" || registerNum == "r1" || registerNum == "R1," || registerNum == "r1,"){
         ROne = hex;
     }
-    else if(registerNum == "R2" || "r2" || "R2," || "r2,"){
+    else if(registerNum == "R2" || registerNum == "r2" || registerNum == "R2," || registerNum == "r2,"){
         RTwo = hex;
     }
-    else if(registerNum == "R3" || "r3" || "R3," || "r3,"){
+    else if(registerNum == "R3" || registerNum == "r3" || registerNum == "R3," || registerNum == "r3,"){
         //cout<< "in here" << endl;
         RThree.assign(hex);
     }
-    else if(registerNum == "R4" || "r4" || "R4," || "r4,"){
+    else if(registerNum == "R4" || registerNum == "r4" || registerNum == "R4," || registerNum == "r4,"){
         RFour = hex;
     }
-    else if(registerNum == "R5" || "r5" || "R5," || "r5,"){
+    else if(registerNum == "R5" || registerNum == "r5" || registerNum == "R5," || registerNum == "r5,"){
         RFive = hex;
     }
     else if(registerNum == "R6" || "r6" || "R6," || "r6,"){
@@ -42,26 +42,26 @@ void Registers::updateRegister(string registerNum, string hex){
 
 string Registers::returnRegister(string registerNum){
     cout << registerNum << endl;
-    if(registerNum == "R0" || "r0" || "R0," || "r0,"){ 
+    if(registerNum == "R0" || registerNum == "r0" || registerNum == "R0," || registerNum == "r0,"){ 
         cout << "in here";
         return RZero;
     }
-    else if(registerNum == "R1" || "r1"|| "R1," || "r1,"){
+    else if(registerNum == "R1" || registerNum == "r1"|| registerNum == "R1," || registerNum == "r1,"){
         return ROne;
     }
-    else if(registerNum == "R2" || "r2"|| "R2," || "r2,"){
+    else if(registerNum == "R2" || registerNum == "r2"|| registerNum == "R2," || registerNum == "r2,"){
         return RTwo;
     }
-    else if(registerNum == "R3" || "r3"|| "R3," || "r3,"){
+    else if(registerNum == "R3" || registerNum == "r3"|| registerNum == "R3," || registerNum == "r3,"){
         return RThree;
     }
-    else if(registerNum == "R4" || "r4"|| "R4," || "r4,"){
+    else if(registerNum == "R4" || registerNum == "r4"|| registerNum == "R4," || registerNum == "r4,"){
         return RFour;
     }
-    else if(registerNum == "R5" || "r5"|| "R5," || "r5,"){
+    else if(registerNum == "R5" || registerNum == "r5"|| registerNum == "R5," || registerNum == "r5,"){
         return RFive;
     }
-    else if(registerNum == "R6" || "r6"|| "R6," || "r6,"){
+    else if(registerNum == "R6" || registerNum == "r6"|| registerNum == "R6," || registerNum == "r6,"){
         return RSix;
     }
     else{
