@@ -42,7 +42,7 @@ int main(){
             else if(One == "ORR" || One == "orr"){
                 orrHex(One, Two, Three, Four, myRegisters);
             }
-            else if(One == "XOR" || One = "xor"){
+            else if(One == "XOR" || One == "xor"){
                 xorHex(One, Two, Three, Four, myRegisters);
             }
             /*else if(operation == "ASR"){

@@ -1,9 +1,9 @@
 #include "Registers.h"
 
 Registers::Registers(){
-    RZero = "0x1";
-    ROne = "0x2";
-    RTwo = "0x4";
+    RZero = "0x0";
+    ROne = "0x0";
+    RTwo = "0x0";
     RThree = "0x0";
     RFour = "0x0";
     RFive = "0x0";
@@ -16,7 +16,6 @@ void Registers::updateRegister(string registerNum, string hex){
         RZero = hex;
     }
     else if(registerNum == "R1" || registerNum == "r1" || registerNum == "R1," || registerNum == "r1,"){
-        cout << RThree << endl;
         ROne = hex;
     }
     else if(registerNum == "R2" || registerNum == "r2" || registerNum == "R2," || registerNum == "r2,"){
