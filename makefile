@@ -1,5 +1,5 @@
-proj2: main.o hex.o
-	g++ main.o hex.o -o proj2
+proj3: main.o hex.o Registers.o
+	g++ main.o hex.o Registers.o -o proj2
 
 main.o: main.cpp hex.h 
 	g++ -c main.cpp
@@ -7,6 +7,9 @@ main.o: main.cpp hex.h
 hex.o: hex.cpp hex.h
 	g++ -c hex.cpp
 
+Registers.o: Registers.h Registers.cpp
+	g++ -c Registers.cpp
+
 clean:
-	rm *.o proj1
+	rm *.o proj3
 

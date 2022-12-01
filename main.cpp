@@ -3,35 +3,37 @@
 #include <sstream>
 #include <fstream>
 #include "hex.h"
+#include "Registers.h"
 using namespace std;
 
-void addingHex(string, string);
-void andHex(string, string);
+void addingHex(string, string, string, Registers);
+/*void andHex(string, string);
 void asrHex(string,string);
 void lsrHex(string, string);
 void lslHex(string, string);
 void notHex(string);
 void orrHex(string, string);
 void subHex(string, string);
-void xorHex(string, string);
+void xorHex(string, string);*/
 
 int main(){
+    Registers myRegisters;
     string line;
-    string operation;
-    string num1;
-    string num2;
+    string One, Two, Three, Four;
 
     ifstream myfile ("test.txt");
     if(myfile.is_open()){
         while(getline(myfile,line)){
 
             istringstream iss (line);
-            iss >> operation >> num1 >> num2;
+            iss >> One >> Two >> Three >> Four;
 
-            if(operation == "ADD"){
-                addingHex(num1, num2);
+            if(One == "ADD" || "add"){
+                addingHex(Two, Three, Four, myRegisters);
+                cout << One << " " << Two << ", " << Three << ", " << Four << endl;
+                myRegisters.printRegisters();
             }
-            else if(operation == "AND"){
+            /*else if(operation == "AND"){
                 andHex(num1, num2);
             }
             else if(operation == "ASR"){
@@ -54,7 +56,7 @@ int main(){
             }
             else{
                 xorHex(num1, num2);
-            }
+            }*/
         }
         myfile.close();
     }
@@ -63,27 +65,31 @@ int main(){
     return 0;
 }
 
-void addingHex(string number1, string number2){
+void addingHex(string One, string Two, string Three, Registers myRegisters){
     uint32_t addedTogether;
-    Hexadecimal firstHex(number1);
-    Hexadecimal secondHex(number2);
+    string hex1, hex2;
+    hex1 = myRegisters.returnRegister(Two);
+    hex2 = myRegisters.returnRegister(Three);
+
+    Hexadecimal firstHex(hex1);
+    Hexadecimal secondHex(hex2);
 
     firstHex.changeToDecimal();
     secondHex.changeToDecimal();
 
     addedTogether = firstHex.returnDecimal() + secondHex.returnDecimal();
+    Hexadecimal decimal(addedTogether);
+    decimal.changeToHex();
+
     if(addedTogether == 0){
-        cout << "Adding " << number1 << " and " << number2 << " is equal to 0x0" << endl;
+        myRegisters.updateRegister(One, "0x0");
     }
     else{
-        Hexadecimal decimal(addedTogether);
-        decimal.changeToHex();
-
-        cout << "Adding " << number1 << " and " << number2 << " is equal to " << decimal.returnHexadecimal() << endl;
+        myRegisters.updateRegister(One, decimal.returnHexadecimal());
     }
 }
 
-void andHex(string number1, string number2){
+/*void andHex(string number1, string number2){
     uint32_t andTogether;
     Hexadecimal firstHex(number1);
     Hexadecimal secondHex(number2);
@@ -225,4 +231,4 @@ void xorHex(string number1, string number2){
     else{
         cout << number1 << " XOR " << number2 << " is equal to " << decimal.returnHexadecimal() << endl;
     }
-}
+}*/
