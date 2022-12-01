@@ -28,7 +28,7 @@ int main(){
             istringstream iss (line);
             iss >> One >> Two >> Three >> Four;
 
-            if(One == "ADD" || "add"){
+            if(One == "ADD" || One == "add"){
                 addingHex(Two, Three, Four, myRegisters);
                 cout << One << " " << Two << " " << Three << " " << Four << endl;
                 myRegisters.printRegisters();
@@ -65,11 +65,11 @@ int main(){
     return 0;
 }
 
-void addingHex(string One, string Two, string Three, Registers myRegisters){
+void addingHex(string Two, string Three, string Four, Registers myRegisters){
     uint32_t addedTogether;
     string hex1, hex2;
-    hex1 = myRegisters.returnRegister(Two);
-    hex2 = myRegisters.returnRegister(Three);
+    hex1 = myRegisters.returnRegister(Three);
+    hex2 = myRegisters.returnRegister(Four);
 
     Hexadecimal firstHex(hex1);
     Hexadecimal secondHex(hex2);
@@ -82,10 +82,10 @@ void addingHex(string One, string Two, string Three, Registers myRegisters){
     decimal.changeToHex();
 
     if(addedTogether == 0){
-        myRegisters.updateRegister(One, "0x0");
+        myRegisters.updateRegister(Two, "0x0");
     }
     else{
-        myRegisters.updateRegister(One, decimal.returnHexadecimal());
+        myRegisters.updateRegister(Two, decimal.returnHexadecimal());
     }
 }
 
