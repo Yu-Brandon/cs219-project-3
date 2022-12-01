@@ -9,6 +9,7 @@ using namespace std;
 void addingHex(string, string, string, string, Registers*);
 void movHex(string, string, string, Registers*);
 void subHex(string, string, string, string, Registers*);
+void andHex(string, string, string, string, Registers*);
 void orrHex(string, string, string, string, Registers*);
 void xorHex(string, string, string, string, Registers*);
 void asrHex(string, string, string, string, Registers*);
@@ -41,6 +42,9 @@ int main(){
             else if(One == "SUB" || One == "sub"){
                 subHex(One, Two, Three, Four, myRegisters);
             }
+            else if(One == "AND" || One == "and"){
+                andHex(One, Two, Three, Four, myRegisters);
+            }
             else if(One == "ORR" || One == "orr"){
                 orrHex(One, Two, Three, Four, myRegisters);
             }
@@ -51,10 +55,10 @@ int main(){
                 asrHex(One, Two, Three, Four, myRegisters);
             }
             else if(One == "LSR" || One == "lsr"){
-                asrHex(One, Two, Three, Four, myRegisters);
+                lsrHex(One, Two, Three, Four, myRegisters);
             }
             else if(One == "LSL" || One == "lsl"){
-                asrHex(One, Two, Three, Four, myRegisters);
+                lslHex(One, Two, Three, Four, myRegisters);
             }
 
             /*else if(operation == "LSL"){
@@ -135,8 +139,8 @@ void subHex(string One, string Two, string Three, string Four, Registers* myRegi
     myRegisters -> printRegisters();
 }
 
-void orrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
-    uint32_t addedTogether;
+void andHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t andTogether;
     string hex1, hex2;
     hex1 = myRegisters -> returnRegister(Three);
     hex2 = myRegisters -> returnRegister(Four);
@@ -147,11 +151,37 @@ void orrHex(string One, string Two, string Three, string Four, Registers* myRegi
     firstHex.changeToDecimal();
     secondHex.changeToDecimal();
 
-    addedTogether = firstHex.returnDecimal() | secondHex.returnDecimal();
-    Hexadecimal decimal(addedTogether);
+    andTogether = firstHex.returnDecimal() & secondHex.returnDecimal();
+    Hexadecimal decimal(andTogether);
     decimal.changeToHex();
 
-    if(addedTogether == 0){
+    if(andTogether == 0){
+        myRegisters -> updateRegister(Two, "0x0");
+    }
+    else{
+        myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
+    }
+    cout << One << " " << Two << " " << Three << " " << Four << endl;
+    myRegisters -> printRegisters();
+}
+
+void orrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    uint32_t orrTogether;
+    string hex1, hex2;
+    hex1 = myRegisters -> returnRegister(Three);
+    hex2 = myRegisters -> returnRegister(Four);
+
+    Hexadecimal firstHex(hex1);
+    Hexadecimal secondHex(hex2);
+
+    firstHex.changeToDecimal();
+    secondHex.changeToDecimal();
+
+    orrTogether = firstHex.returnDecimal() | secondHex.returnDecimal();
+    Hexadecimal decimal(orrTogether);
+    decimal.changeToHex();
+
+    if(orrTogether == 0){
         myRegisters -> updateRegister(Two, "0x0");
     }
     else{
