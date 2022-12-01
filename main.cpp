@@ -69,6 +69,7 @@ int main(){
 }
 
 void movHex(string One, string Two, string Three, Registers* myRegisters){
+    Three.erase(0,1);
     myRegisters -> updateRegister(Two, Three);
     cout << One << " " << Two << " " << Three << " " << endl;
     myRegisters -> printRegisters();
