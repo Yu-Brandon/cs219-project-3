@@ -30,7 +30,7 @@ int main(){
 
             if(One == "ADD" || "add"){
                 addingHex(Two, Three, Four, myRegisters);
-                cout << One << " " << Two << ", " << Three << ", " << Four << endl;
+                cout << One << " " << Two << " " << Three << " " << Four << endl;
                 myRegisters.printRegisters();
             }
             /*else if(operation == "AND"){

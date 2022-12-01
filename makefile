@@ -1,5 +1,5 @@
 proj3: main.o hex.o Registers.o
-	g++ main.o hex.o Registers.o -o proj2
+	g++ main.o hex.o Registers.o -o proj3
 
 main.o: main.cpp hex.h 
 	g++ -c main.cpp
