@@ -1,6 +1,8 @@
 #include "Registers.h"
 
+//constructor
 Registers::Registers(){
+    //sets all the registers to the hex value of 0
     RZero = "0x0";
     ROne = "0x0";
     RTwo = "0x0";
@@ -12,6 +14,7 @@ Registers::Registers(){
 }
 
 void Registers::updateRegister(string registerNum, string hex){
+    //finds the register that is passed in and updates that register to the hex number that was passed in
     if(registerNum == "R0" || registerNum == "r0" || registerNum == "R0," || registerNum == "r0,"){
         RZero = hex;
     }
@@ -39,6 +42,7 @@ void Registers::updateRegister(string registerNum, string hex){
 }
 
 string Registers::returnRegister(string registerNum){
+    //finds the register that was passed in and then returns the hex number in that register
     if(registerNum == "R0" || registerNum == "r0" || registerNum == "R0," || registerNum == "r0,"){ 
         return RZero;
     }
@@ -66,6 +70,7 @@ string Registers::returnRegister(string registerNum){
 }
 
 void Registers::printRegisters(){
+    //prints out the register number along with the hex number that is in that register
     cout << "R0:" << RZero << "  " << "R1:" << ROne << "  " << "R2:" << RTwo << "  " << "R3:" << RThree << "  "  << endl 
     << "R4:" << RFour << "  " << "R5:" << RFive << "  " << "R6:" << RSix << "  " << "R7:" << RSeven << endl;
 }

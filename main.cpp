@@ -174,7 +174,7 @@ void andHex(string One, string Two, string Three, string Four, Registers* myRegi
     andTogether = firstHex.returnDecimal() & secondHex.returnDecimal();
     Hexadecimal decimal(andTogether);
     decimal.changeToHex();
-    //do bitwise and to the decimla numbers and then using the hexadecimal class convert the decimal into hex
+    //do bitwise and to the decimal numbers and then using the hexadecimal class convert the decimal into hex
 
     if(andTogether == 0){
         myRegisters -> updateRegister(Two, "0x0");
@@ -195,17 +195,18 @@ void orrHex(string One, string Two, string Three, string Four, Registers* myRegi
     string hex1, hex2;
     hex1 = myRegisters -> returnRegister(Three);
     hex2 = myRegisters -> returnRegister(Four);
-    //create two strings to hold the 
+    //create two strings to hold the hex numbers in the two registers
 
     Hexadecimal firstHex(hex1);
     Hexadecimal secondHex(hex2);
-
     firstHex.changeToDecimal();
     secondHex.changeToDecimal();
+    //using the hexadecimal class to convert the hexadecimal numbers to decimal
 
     orrTogether = firstHex.returnDecimal() | secondHex.returnDecimal();
     Hexadecimal decimal(orrTogether);
     decimal.changeToHex();
+    //do bitwise or to the numbers can then convert it back into hexadecimal using the hexadeciaml class
 
     if(orrTogether == 0){
         myRegisters -> updateRegister(Two, "0x0");
@@ -213,25 +214,31 @@ void orrHex(string One, string Two, string Three, string Four, Registers* myRegi
     else{
         myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
     }
+    //updates the hex number into the register being written to
     cout << One << " " << Two << " " << Three << " " << Four << endl;
     myRegisters -> printRegisters();
+    //prints out the operation and all the registers
 }
 
+//function for bitwise Xor
 void xorHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    //Two holds the register being written to and Three and Four are the operators
     uint32_t xorTogether;
     string hex1, hex2;
     hex1 = myRegisters -> returnRegister(Three);
     hex2 = myRegisters -> returnRegister(Four);
+    //creates two string to hold the hex numbers in the registers
 
     Hexadecimal firstHex(hex1);
     Hexadecimal secondHex(hex2);
-
     firstHex.changeToDecimal();
     secondHex.changeToDecimal();
+    //using the hexadecimal class to comvert the hexadecimal numbers into decimal
 
     xorTogether = firstHex.returnDecimal() ^ secondHex.returnDecimal();
     Hexadecimal decimal(xorTogether);
     decimal.changeToHex();
+    //do bitwise Xor and the convert the number back into hexadecimal using the hexadecimal class
 
     if(xorTogether == 0){
         myRegisters -> updateRegister(Two, "0x0");
@@ -239,71 +246,89 @@ void xorHex(string One, string Two, string Three, string Four, Registers* myRegi
     else{
         myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
     }
+    //updateing the hexadecimal into the register being written to
     cout << One << " " << Two << " " << Three << " " << Four << endl;
     myRegisters -> printRegisters();
+    //prints out the operation and all the registers
 }
 
+//function for bitwise asr
 void asrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    //Two holds the register being written to Three holds the operator and Four holds how much to shift by
     uint32_t asrNum;
     string nFour = Four;
     Four.erase(0,1);
+    //remove the # infront of the shift number
     int shiftNum = Four[0] - 48;
+    //converts the shift character into a integer
 
     string hex1 = myRegisters -> returnRegister(Three);
     Hexadecimal hex(hex1);
     hex.changeToDecimal();
-    //cout << hex.returnDecimal()  << endl;
+    //creates a string to hold the hex number in the register and then converts it into decimal using the hexadecimal class
 
     signed int uNumber = hex.returnDecimal();
     asrNum = (uNumber >> shiftNum);
     Hexadecimal decimal(asrNum);
-    //cout << asrNum << endl;
     decimal.changeToHex();
-
-    string hex2 = decimal.returnHexadecimal();
-    cout << hex2 << endl;
-    cout << Two << endl;
+    //creates a signed int because asr uses a signed int and then shifts the signed number and then changing it back hex using the hexadecimal class
 
     myRegisters -> updateRegister(Two, decimal.returnHexadecimal());
+    //updates the hexadecimal into the register being written to
     cout << One << " " << Two << " " << Three << " " << nFour << endl;
     myRegisters -> printRegisters();
+    //prints out the operation and all the registers
 }
 
 void lsrHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    //Two holds the register being written to Three holds the operator and Four holds how much to shift by
     uint32_t lsrNum;
     string nFour = Four;
     Four.erase(0,1);
+    //remove the # infront of the shift number
     int shiftNum = Four[0] - 48;
+    //converts the shift character into a integer
 
     string hex1 = myRegisters -> returnRegister(Three);
     Hexadecimal hex(hex1);
     hex.changeToDecimal();
+    //creates a string to hold the hex number in the register and then converts it into decimal using the hexadecimal class
 
     unsigned int uNumber = hex.returnDecimal();
     lsrNum = uNumber >> shiftNum;
     Hexadecimal decimal(lsrNum);
     decimal.changeToHex();
+    //creates a unsigned because lsr uses a unsigned int and then shifts the signed number and then changing it back hex using the hexadecimal class
 
     myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
+    //updates the hexadecimal into the register being written to
     cout << One << " " << Two << " " << Three << " " << nFour << endl;
     myRegisters -> printRegisters();
+    //prints out the operation and all the registers
 }
 
 void lslHex(string One, string Two, string Three, string Four, Registers* myRegisters){
+    //Two holds the register being written to Three holds the operator and Four holds how much to shift by
     uint32_t lslNum;
     string nFour = Four;
     Four.erase(0,1);
+    //remove the # infront of the shift number
     int shiftNum = Four[0] - 48;
+    //converts the shift character into a integer
 
     string hex1 = myRegisters -> returnRegister(Three);
     Hexadecimal hex(hex1);
     hex.changeToDecimal();
+    //creates a string to hold the hex number in the register and then converts it into decimal using the hexadecimal class
 
     lslNum = hex.returnDecimal() << shiftNum;
     Hexadecimal decimal(lslNum);
     decimal.changeToHex();
+    //shifts the decimal number and then converts it into hexadecimal using the hexadecimal class
 
     myRegisters ->updateRegister(Two, decimal.returnHexadecimal());
+    //updates the hexadecimal into the register being written to
     cout << One << " " << Two << " " << Three << " " << nFour << endl;
     myRegisters -> printRegisters();
+    //prints out the operation and all the registers
 }
