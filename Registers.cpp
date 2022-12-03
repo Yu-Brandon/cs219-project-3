@@ -30,7 +30,7 @@ void Registers::updateRegister(string registerNum, string hex){
     else if(registerNum == "R5" || registerNum == "r5" || registerNum == "R5," || registerNum == "r5,"){
         RFive = hex;
     }
-    else if(registerNum == "R6" || "r6" || "R6," || "r6,"){
+    else if(registerNum == "R6" || registerNum == "r6" || registerNum == "R6," || registerNum == "r6,"){
         RSix = hex;
     }
     else{

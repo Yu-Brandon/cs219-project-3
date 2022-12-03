@@ -3,9 +3,11 @@
 using namespace std;
 
 int main(){
-    string one = "R2dhsgowhegowhpq";
+    int one = 500;
 
-    one.erase(2);
-    cout << one;
+    int shift = one << 2;
+
+    cout << shift;
+
     return 0;
 }
